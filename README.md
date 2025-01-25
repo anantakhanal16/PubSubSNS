@@ -1,32 +1,58 @@
 PubSubSns CDK Project
-This project demonstrates a simple serverless Publish-Subscribe (Pub/Sub) architecture using AWS CDK. It includes an SNS topic, a Lambda function, an API Gateway, and SQS queues.
+This project demonstrates a serverless architecture using AWS services, including Lambda, API Gateway, SNS, and SQS. It consists of two projects:
 
-Architecture Details
+PubSubSns: Contains the CDK stack definitions for the infrastructure (SNS topic, Lambda function, API Gateway, and SQS queues).
+SnsIntegrations: Contains the code for the Lambda function (Function.cs).
+Prerequisites
+AWS Account
+
+Ensure you have an active AWS account.
+IAM User
+
+Create an IAM user with necessary permissions to deploy AWS resources such as Lambda, SNS, SQS, and API Gateway.
+AWS Credentials
+
+Configure AWS credentials on your local machine using the AWS CLI:
+bash
+Copy
+Edit
+aws configure  
+AWS CDK
+
+Install AWS CDK globally if not already installed:
+bash
+Copy
+Edit
+npm install -g aws-cdk  
+Deployment Steps
+1. Publish the Lambda Function
+Navigate to the SnsIntegrations project.
+Publish the Lambda function using the .NET CLI:
+bash
+Copy
+Edit
+dotnet publish -c Release -r linux-x64 --self-contained true  
+The published files will be located in the bin\Release\net8.0\linux-x64\publish directory.
+2. Deploy the CDK Stack
+Navigate to the PubSubSns project directory.
+Run the following command to deploy the stack:
+bash
+Copy
+Edit
+cdk deploy  
+Testing
+Once the stack is deployed, you can test the setup:
+
 API Gateway
 
-An API Gateway is created with a POST method at the /publish endpoint.
-This API triggers the Lambda function.
-Lambda Function
+Use Postman or any API client to send a POST request to the /publish endpoint provided by the API Gateway.
+SNS and SQS
 
-A .NET 6 Lambda function (MyLambdaFunction) is set up to publish messages to the SNS topic.
-The function is invoked by the API Gateway.
-SNS Topic
+Verify that messages published by the Lambda function are delivered to the two SQS queues subscribed to the SNS topic.
+AWS Console
 
-An SNS topic (MySnsTopic) is created.
-The Lambda function has permissions to publish messages to this topic.
-SQS Queues
-
-Two SQS queues (MyQueue1 and MyQueue2) are created.
-Both queues are subscribed to the SNS topic.
-Messages published to the SNS topic are delivered to both SQS queues.
-Message Flow
-A user sends a POST request to the /publish endpoint on the API Gateway.
-The API Gateway triggers the Lambda function.
-The Lambda function publishes a message to the SNS topic.
-The SNS topic broadcasts the message to the subscribed SQS queues (MyQueue1 and MyQueue2).
-Summary of Components
-API Gateway: /publish endpoint for publishing messages.
-Lambda Function: Publishes messages to the SNS topic.
-SNS Topic: Routes messages to the subscribed SQS queues.
-SQS Queues: Receives and stores messages from the SNS topic.
-This description highlights the relationship between the components and their roles. Let me know if you'd like any further adjustments!
+Alternatively, invoke the Lambda function directly from the AWS Console and observe the flow.
+File Structure
+PubSubSns: Infrastructure definitions (stacks, resources).
+SnsIntegrations/Function.cs: Code for the Lambda function that publishes messages to the SNS topic.
+With this guide, you’ll be able to deploy and test the serverless Pub/Sub architecture seamlessly.
