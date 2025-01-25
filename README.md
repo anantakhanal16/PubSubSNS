@@ -1,9 +1,12 @@
-PubSubSns CDK Project
+###### PubSubSns CDK Project
+
+
 This project demonstrates a serverless architecture using AWS services, including Lambda, API Gateway, SNS, and SQS. It consists of two projects:
 
 PubSubSns: Contains the CDK stack definitions for the infrastructure (SNS topic, Lambda function, API Gateway, and SQS queues).
 SnsIntegrations: Contains the code for the Lambda function (Function.cs).
-Prerequisites
+
+##Prerequisites
 AWS Account
 
 Ensure you have an active AWS account.
@@ -13,36 +16,26 @@ Create an IAM user with necessary permissions to deploy AWS resources such as La
 AWS Credentials
 
 Configure AWS credentials on your local machine using the AWS CLI:
-bash
-Copy
-Edit
-aws configure  
+aws configure on cmd 
+ 
 AWS CDK
-
 Install AWS CDK globally if not already installed:
-bash
-Copy
-Edit
 npm install -g aws-cdk  
-Deployment Steps
+
+##Deployment Steps
 1. Publish the Lambda Function
 Navigate to the SnsIntegrations project.
 Publish the Lambda function using the .NET CLI:
-bash
-Copy
-Edit
 dotnet publish -c Release -r linux-x64 --self-contained true  
 The published files will be located in the bin\Release\net8.0\linux-x64\publish directory.
+
 2. Deploy the CDK Stack
 Navigate to the PubSubSns project directory.
 Run the following command to deploy the stack:
-bash
-Copy
-Edit
-cdk deploy  
-Testing
+cdk deploy 
+ 
+##Testing
 Once the stack is deployed, you can test the setup:
-
 API Gateway
 
 Use Postman or any API client to send a POST request to the /publish endpoint provided by the API Gateway.
