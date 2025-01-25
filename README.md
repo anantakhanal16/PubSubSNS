@@ -51,3 +51,4 @@ File Structure
 PubSubSns: Infrastructure definitions (stacks, resources).
 SnsIntegrations/Function.cs: Code for the Lambda function that publishes messages to the SNS topic.
 With this guide, you’ll be able to deploy and test the serverless Pub/Sub architecture seamlessly.
+you can watch cloud watch logs of the deployed function to debug the code in aws console. 
